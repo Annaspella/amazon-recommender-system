@@ -2,7 +2,6 @@
 
 This project implements an **item-based collaborative filtering** recommendation system using user reviews from Amazon. It explores various similarity measures to compute rating predictions and evaluates both the **accuracy (RMSE)** and **efficiency (execution time)** of the algorithms, with and without the use of **clustering**.
 
----
 
 ## 📚 Overview
 
@@ -14,7 +13,6 @@ The goal is to predict missing user-item ratings by comparing items based on sim
 - Evaluates performance using **Root Mean Squared Error (RMSE)**.
 - Measures runtime to assess algorithmic efficiency.
 
----
 
 ## 📁 Project Structure
 
@@ -67,14 +65,14 @@ The goal is to predict missing user-item ratings by comparing items based on sim
 1. Install Python 3.9+
 2. Install required packages:
 
-```bash
 pip install pandas numpy scipy
 
-Convert raw dataset (if needed):
+# Convert raw dataset (if needed)
 python Apertura.py
 
-Run the recommender system:
+# Run the recommender system
 python finale.py
+
 
 Output includes predicted ratings, RMSE scores, and execution time per similarity method.
 
