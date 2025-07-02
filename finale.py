@@ -87,6 +87,18 @@ perute= (1 - Mte.shape[0]/Cte.shape[0])*100
 print("Percentuale di item persi con operazione di pulizia test:{}%".format(perite))
 print("Percentuale di user persi con operazione di pulizia test:{}%".format(perute))
 
+print("Numero di user nella training set: {}".format(Ctr.shape[0]))
+print("Numero di user nella training set pulita: {}".format(Mtr.shape[0]))
+
+print("Numero di item nella training set: {}".format(Ctr.shape[1]))
+print("Numero di item nella training set pulita: {}".format(Mtr.shape[1]))
+
+print("Numero di user nella test set: {}".format(Cte.shape[0]))
+print("Numero di user nella test set pulita: {}".format(Mte.shape[0]))
+
+print("Numero di item nella test set: {}".format(Cte.shape[1]))
+print("Numero di item nella test set pulita: {}".format(Mte.shape[1]))
+
 #Calcolo degli user e item in comune tra test e train:
 #così sarà possibile fare previsioni sulla test set, per item e user che
 #ha in comune con la training set, col fine di valutare l'accuratezza previsiva

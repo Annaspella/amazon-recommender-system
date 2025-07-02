@@ -5,9 +5,9 @@ import sys
 import random as rd
 import matplotlib.pyplot as plt
 
-#Seleziona casualemente, secondo la distribuzione uniforme,i centroidi iniziali per la procedura.
-#La funziona ritorna una matrice contenente i centroidi (tante colonne quanti sono i cluster, tante righe quanti sono gli user)
-#e gli indici della posizione di questi nella matrice.
+# Randomly select the initial centroids according to the uniform distribution for the procedure.
+# The function returns a matrix containing the centroids (as many columns as clusters, as many rows as users)
+# and the indices of their positions in the matrix.
 def PCc(B,K,seme):
     m=B.shape[0]
     n=B.shape[1]
@@ -20,10 +20,10 @@ def PCc(B,K,seme):
         Centroidi=np.c_[Centroidi,B[casuale]]
     return Centroidi,indici
 
-#Questa funzione permette di calcolare la distanza euclidea tra gli item e gli ultimi centroidi individuati.
-#Ritorna un matrice (tante righe quanti sono gli item, tante colonne quanti sono i cluster),
-#dove l'elemento della cella i-j è la distanza euclidea dell'item i dal centroide j.
-#Per riga troviamo la differenza dell'item da tutti i centroidi.
+# This function calculates the Euclidean distance between the items and the latest identified centroids.
+# It returns a matrix (with as many rows as items and as many columns as clusters),
+# where the element in cell i-j is the Euclidean distance of item i from centroid j.
+# Each row shows the difference of the item from all the centroids.
 def Euclidea(A,Centroidi):
     EuDist=np.array([]).reshape(A.shape[0],0)
     for k in range(Centroidi.shape[1]):
@@ -31,18 +31,18 @@ def Euclidea(A,Centroidi):
         EuDist=np.c_[EuDist,temporanea]
     return EuDist
 
-#Questa funzione riporta l'etichetta che indica l'appartenza di un item al cluster.
-#Il vettore avrà tanti elementi quanti sono gli item.
-#Gli indici vanno da 0 a K, ad esempio 0 indica il primo cluster.
-#Viene calcolato trovando la distanza minima tra i centroidi, quindi il minimo per riga.
+# This function returns the label indicating the membership of an item to a cluster.
+# The vector will have as many elements as there are items.
+# The indices range from 0 to K, for example, 0 indicates the first cluster.
+# It is calculated by finding the minimum distance among the centroids, that is, the minimum per row.
 def Etichette(DistMat):
     C=np.argmin(DistMat,axis=1)
     return C
 
-#Questa funzione esegue l'aggiornamento dei centroidi dopo aver definito i gruppi.
-#Il nuovo centroide è calcolato come media dei valori interni al cluster.
-#Se un cluster risulta vuoto si mantiene il centroide precedente.
-#Ritorna una matrice con i nuovi centroidi (tante colonne quanti sono i cluster, tante righe quanti sono gli user).
+# This function updates the centroids after defining the clusters.
+# The new centroid is calculated as the mean of the values within the cluster.
+# If a cluster is empty, the previous centroid is kept.
+# It returns a matrix with the new centroids (as many columns as clusters, as many rows as users).
 def Aggiornamento(A,Label,Centroidi):
     nuovi_Centroidi=np.array([]).reshape(A.shape[1],0)
     for j in range(Centroidi.shape[1]):
@@ -56,12 +56,11 @@ def Aggiornamento(A,Label,Centroidi):
             nuovi_Centroidi=np.c_[nuovi_Centroidi,ricalcolo]
     return nuovi_Centroidi
 
-#Funzione finale
-#Questa funzione esegue l'algoritmo K-Means.
-#Ritorna la matrice dei centroidi finali (tante righe quanti sono i cluster, tante colonne quante sono gli user),
-#il vettore delle etichette e il numero di iterazioni effettuate.
-#Funziona per matrici d'utilità che originariamente hanno gli item disposti per colonna.
-#Se gli item dovessero essere messi per riga bisogna passare la matrice trasposta.
+# Final function
+# This function runs the K-Means algorithm.
+# It returns the matrix of final centroids (as many rows as clusters, as many columns as users),
+# the vector of labels, and the number of iterations performed.
+# It works fo
 def KMeansMio(X,k,seme=0,maxiter=100):
     X=np.array(X).T
     centroidi,primiindici=PCc(X,k,0) #trovo i primi centoridi
@@ -80,14 +79,14 @@ def KMeansMio(X,k,seme=0,maxiter=100):
 def cluster(train,k):
     M0=pd.DataFrame([])
     M1=pd.DataFrame([])
-    centers, label, itr= KMeansMio(train, k) #richiamo la funzione kmeans per la suddivisione dei due cluster
-    for i in range(len(label)): #itero tante volte quanti sono gli item
-        C0=train.iloc[:,i] #estrazione della colonna i-esima
-        if(label[i]==0): #se l'item i-esimo appartiene al primo cluster aggiungo la colonna ad M0
+    centers, label, itr= KMeansMio(train, k) #rrecall of the kmeans function to divide into the two clusters
+    for i in range(len(label)):              #iteration over the number of items
+        C0=train.iloc[:,i]                   #selection of the ith column
+        if(label[i]==0):                     #if the ith item belongs to the first cluste add the column M0 to C0
             M0=pd.concat([M0,C0],axis=1)
             itemcols1 = list(M0.columns)
-            items_index1 = {itemcols1[i]: i for i in range(len(itemcols1))} #indicizza ogni item
-        else:#se invece l'item i-esimo appartiene al secondo cluster aggiungo la colonna ad M1
+            items_index1 = {itemcols1[i]: i for i in range(len(itemcols1))} #assign an index to each item
+        else:                               #else: if the ith item belongs to the secon cluster add column M1
             M1=pd.concat([M1,C0],axis=1)
             itemcols2 = list(M1.columns)
             items_index2 = {itemcols2[i]: i for i in range(len(itemcols2))}
