@@ -38,7 +38,6 @@ The goal is to predict missing user-item ratings by comparing items based on sim
 - RMSE computation for evaluating prediction quality.
 - Execution time tracking for performance benchmarking.
 
----
 
 ## 📊 Results
 
@@ -58,7 +57,6 @@ The goal is to predict missing user-item ratings by comparing items based on sim
 | JSB        | 2826.77s           | —               |
 | ED         | 94.07s             | 85.48s          |
 
----
 
 ## 🚀 Running the Code
 
