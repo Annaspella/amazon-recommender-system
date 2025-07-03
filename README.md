@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 🎵 Amazon Reviews Recommender System
 
 This project implements an **item-based collaborative filtering** recommendation system using user reviews from Amazon. It explores various similarity measures to compute rating predictions and evaluates both the **accuracy (RMSE)** and **efficiency (execution time)** of the algorithms, with and without the use of **clustering**.
